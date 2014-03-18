@@ -1,0 +1,39 @@
+import hidden_turtle
+import matplotlib.pyplot as plt
+import random
+
+
+def random_walk(n):
+    hidden_turtle.setposition(0,0)
+
+    for i in range(n):
+        hidden_turtle.setheading(random.random()*360)
+
+        hidden_turtle.forward(10)
+
+    return hidden_turtle.position()
+
+def multiple_walks(m, n):
+    s_n_squared_list = []
+    for i in range(m):
+        end_pos = random_walk(n)
+        s_n_squared_list.append(end_pos[0]**2 + end_pos[1]**2)
+
+    return sum(s_n_squared_list) / len(s_n_squared_list)
+
+
+m = 1000
+n_list = []
+average_s_n_squared_list = []
+x = []
+y = []
+for n in range(10):
+    n_list.append(n)
+    average_s_n_squared = multiple_walks(m, n)
+    average_s_n_squared_list.append(average_s_n_squared)
+    x.append(n)
+    y.append(10**2*n)
+
+plt.plot(n_list, average_s_n_squared_list)
+plt.plot(x, y)
+plt.show()

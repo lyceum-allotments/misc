@@ -1,0 +1,72 @@
+import math
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.rcParams['backend']= 'TkAgg'
+plt.rcParams['interactive']= False
+
+x = 0.0
+y = 0.0
+dn_x = 1
+dn_y = 0
+
+def setheading(angle):
+    global dn_x, dn_y
+
+    dn_x = math.cos(angle * math.pi / 180.)
+    dn_y = math.sin(angle * math.pi / 180.)
+
+
+def forward(distance):
+    global x, y
+    x += float(distance) * dn_x
+    y += float(distance) * dn_y
+
+def position():
+    return (x, y)
+
+def setposition(new_x, new_y):
+    global x, y
+    x = new_x
+    y = new_y
+
+def exitonclick():
+    plt.show()
+    return
+
+def scatter(data):
+    data = np.array(data)
+    x = data[:,0]
+    y = data[:,1]
+
+    plt.scatter(x, y)
+
+    plt.show()
+
+
+def new_scatter(data):
+    data = np.array(data)
+    x = data[:,0]
+    y = data[:,1]
+
+    # plt.hexbin(x, y)
+    plt.hist2d(x, y, 100)
+
+    plt.show(block = False)
+
+
+def hist2d(data, bins):
+    data = np.array(data)
+    x = data[:,0]
+    y = data[:,1]
+
+    plt.hist2d(x, y, bins)
+    plt.colorbar()
+
+
+
+def norm_scatter(data):
+    plt.hist(data, 20)
+
+    plt.show(block = False)
+
